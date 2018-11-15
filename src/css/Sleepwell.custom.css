@@ -1,0 +1,197 @@
+.hidden {
+  display: none !important;
+}
+
+.subsection__dropdown-content {
+  padding: 0 60px;
+  max-height: 0;
+  transition: max-height 0.5s ease, 
+              padding 0.7s ease;
+}
+
+.chapters__chapter {
+  position: relative;
+  padding-left: 80px;
+}
+
+.chapter__interface {
+  line-height: 1.2em;
+}
+
+.chapter__open-dd {
+  color: #178fe5;
+  cursor: pointer;
+}
+
+.dd-icon {
+  width: 28px;
+  height: 24px;
+  margin-right: 10px;
+}
+.dd-icon.cross {
+  padding: 0 6px 3px 0;
+}
+
+.chapter__number {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.current-progress {
+  background-color: #178fe5;
+  height: 100%;
+  transition: 0.5s ease;
+}
+
+.chapter__done-check {
+  cursor: pointer;
+}
+
+.chapter__read-link {
+  cursor: pointer;
+}
+
+.chapter-read-l {
+  color: #178fe5;
+}
+
+.dd-icon {
+  width: 28px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.main__subsection.opened .subsection__dropdown-content {
+  max-height: 999px; 
+  padding: 30px 60px 60px;
+}
+
+.chapters__chapter.done {
+  background-color: #92BA4F;
+  color: #fff;
+}
+
+.chapters__chapter.done .chapter__number {
+  background-color: #92BA4F;
+}
+
+.chapters__chapter.done .chapter__read-link {
+  color: #fff !important;
+}
+
+.chapters__chapter.done .check-done-t {
+  color: #fff;
+}
+
+.chapters__chapter.done .check-box {
+  border-color: #fff;
+  background-color: #fff;
+  background-image: url("../images/checkmark.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.chapters__chapter.done .chapter-read-l {
+  color: #fff;
+}
+
+.chapters__chapter.done .book-img {
+  filter: brightness(100);
+}
+
+@media(max-width: 1100px) {
+  .subsection__txt {
+    margin-top: 0;
+  }
+  .chapter__open-dd {
+    margin-top: 20px;
+  }
+  .chapter__name {
+    max-width: 300px;
+  }
+}
+
+@media(max-width: 991px) {
+  .button__circle {
+    justify-content: flex-start;
+    width: 22px;
+  }
+  .button__arrow {
+    filter: brightness(100);
+    width: 22px;
+  }
+}
+
+@media(max-width: 767px) {
+  .chapters__chapter {
+    padding-left: 60px;
+  }
+  .chapter__interface {
+    font-size: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .chapter__name {
+    max-width: none;
+  }
+  .chapter__number {
+    font-size: 16px;
+  }
+  .subsection__dropdown-content {
+    padding: 0 10px;
+  }
+  .main__subsection.opened .subsection__dropdown-content {
+    padding: 15px 10px 10px;
+  }
+  .dd-icon {
+    width: 22px;
+    height: 18px;
+  }
+  .chapters__chapter {
+    height: auto;
+  }
+}
+
+@media(max-width: 479px) {
+  .chapters__chapter {
+    padding-left: 56px;
+  }
+
+  .chapter__interface {
+    padding-top: 12px;
+  }
+  
+  .subsection__dropdown-content {
+    padding: 0 5px;
+  }
+  .main__subsection.opened .subsection__dropdown-content {
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+  }
+  .dd-text {
+    min-height: 30px;
+  }
+}
+
+/*ReactCSSTransitionGroup*/
+
+.fading-enter {
+  opacity: 0.01;
+}
+
+.fading-enter.fading-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in 500ms;
+}
+
+.fading-leave {
+  opacity: 1;
+}
+
+.fading-leave.fading-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}
