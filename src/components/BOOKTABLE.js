@@ -72,14 +72,18 @@ export const BOOKTABLE = {
             'done': false,
           },
           '3.4': {
+            'name': 'Use Natural Fabric for Your Bedding and Sleepwear',
+            'done': false,
+          },          
+          '3.5': {
             'name': 'Choose the Right Pillow',
             'done': false,
           },
-          '3.5': {
+          '3.6': {
             'name': 'Use Sleep Fragrances',
             'done': true,
           },
-          '3.6': {
+          '3.7': {
             'name': 'Control Air Humidity',
             'done': false,
           },

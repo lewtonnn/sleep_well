@@ -12,7 +12,7 @@ class Welcome extends Component {
 		return(
 	  <div class="welcome-main">
     <div class="container welcome"><img src={moon} alt="" class="welcome__moon" /><img src={neptune} alt="" class="welcome__neptune" /><img src={star} alt="" class="welcome__star" />
-      <div class="welcome__button" onClick={changePage}>
+      <div class="welcome__button" onClick={changePage(2)}>
         <p class="button__text">Go to Dashboard</p>
         <div class="button__circle"><img src={arrow} alt="" class="button__arrow" /></div>
       </div>

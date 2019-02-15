@@ -2,6 +2,27 @@
   display: none !important;
 }
 
+table {
+  width: 100%;
+  text-align: left;
+  border: 1px solid #000;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+th {
+  border: 1px solid #000;
+  width: 50%;
+  padding: 5px 10px 0;
+}
+
+td {
+  border: 1px solid #000;
+  width: 50%;
+  padding: 5px 10px 0;
+}
+
 .subsection__dropdown-content {
   padding: 0 60px;
   max-height: 0;

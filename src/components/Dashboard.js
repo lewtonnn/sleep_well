@@ -4,7 +4,7 @@ import Top from './Top.js';
 import pointingHand from '../images/pointing-hand.svg';
 import bookImg from '../images/book.svg';
 import crossIcon from '../images/cross-icon.svg';
-import {BOOKTABLE} from './BOOKTABLE.js';
+import {BOOKTABLE} from './booktable.js';
 
 class Chapter extends Component {
     state = {

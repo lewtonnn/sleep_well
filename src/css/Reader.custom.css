@@ -1,0 +1,33 @@
+.side-menu__neptune {
+	position: fixed;
+	z-index: -1;
+
+}
+
+.side-section__dropdown {
+	height: auto;
+	/*display: none;*/
+}
+
+.book__topline {
+	position: static;
+	width: 100%
+}
+.reader__side-menu {
+	box-shadow: -15px 0px 20px 0 #0000000d;
+}
+.side-menu__table {
+	padding-bottom: 200px;
+}
+
+.reader__mainpart {
+	box-shadow: 15px 0px 20px 0 #0000000d;
+}
+
+.reader__book {
+	padding-bottom: 55px;
+}
+
+.full-width-image.at-beginning {
+	margin-bottom: 20px;
+}

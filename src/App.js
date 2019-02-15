@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Dashboard from './components/Dashboard.js';
 import Welcome from './components/Welcome.js';
+import Reader from './components/Reader.js';
 import './css/Webflow.css';
 import './css/Sleepwell.css';
 import './css/Sleepwell.custom.css';
+import './css/Reader.custom.css';
+
+import {BOOKTABLE} from './components/booktable.js';
+import {SLEEPWELL} from './components/sleepwell.js';
+import Parser from 'html-react-parser';
 
 class App extends Component {
 	state =  {

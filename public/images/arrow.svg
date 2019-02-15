@@ -1,0 +1,13 @@
+
+<svg width="26px" height="18px" viewBox="0 0 26 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="SleepBook-Intro-screen" transform="translate(-1347.000000, -731.000000)" stroke="#178FE5" stroke-width="3">
+            <g id="Group-48" transform="translate(1135.000000, 700.000000)">
+                <g id="Group-47" transform="translate(214.000000, 33.000000)">
+                    <path d="M0,7 L20,7" id="Line"></path>
+                    <polyline id="Triangle-4" stroke-linejoin="round" points="15 0 22 7 15 14"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
