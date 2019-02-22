@@ -1,33 +1,60 @@
 .side-menu__neptune {
-	position: fixed;
-	z-index: -1;
+  position: fixed;
+  z-index: -1;
 
 }
 
 .side-section__dropdown {
-	height: auto;
-	/*display: none;*/
+  height: auto;
+  /*display: none;*/
 }
 
 .book__topline {
-	position: static;
-	width: 100%
+  position: static;
+  width: 100%
 }
 .reader__side-menu {
-	box-shadow: -15px 0px 20px 0 #0000000d;
+  box-shadow: -15px 0px 20px 0 #0000000d;
 }
 .side-menu__table {
-	padding-bottom: 200px;
+  padding-bottom: 200px;
 }
 
 .reader__mainpart {
-	box-shadow: 15px 0px 20px 0 #0000000d;
+  box-shadow: 15px 0px 20px 0 #0000000d;
 }
 
 .reader__book {
-	padding-bottom: 55px;
+  padding-bottom: 55px;
+}
+
+.book__bookbody {
+  height: 100%;
+}
+
+.book__bookfooter {
+  height: 100%;
 }
 
 .full-width-image.at-beginning {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }
