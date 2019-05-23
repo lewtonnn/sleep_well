@@ -22,6 +22,10 @@ td {
   width: 50%;
   padding: 5px 10px 0;
 }
+.sleepwell {
+  overflow: auto;
+  overflow-x: hidden;
+}
 
 .subsection__dropdown-content {
   padding: 0 60px;
@@ -136,7 +140,7 @@ td {
   margin-right: 10px;
 }
 
-.float-right.30width {
+.float-right._30width {
   width: 30%;
 }
 

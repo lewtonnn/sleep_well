@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import Parser from 'html-react-parser'
-import { SLEEPWELL } from './sleepwell.js'
+import { SLEEPWELL } from './sleepwell.nor.js'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import './../css/Sleepwell.custom.css'
 
 import moon from '../images/sleepwell-moon.svg'
 // import star from '../images/shooting-star.svg';
@@ -16,11 +15,11 @@ class BookTopline extends Component {
     const {chapterKey, subsKey} = this.props
 
     return (
-      <div class="topline__info">
-        <p class="topline__section-name">
-          <strong>{SLEEPWELL[subsKey]['chapters'][chapterKey]['name']}</strong>
+      <div className="topline__info">
+        <p className="topline__section-name">
+          {SLEEPWELL[subsKey]['chapters'][chapterKey]['name']}
         </p>
-        <div class="topline__chapter-num">
+        <div className="topline__chapter-num">
           Part {subsKey} - Chapter {chapterKey}
         </div>
       </div>
@@ -34,12 +33,12 @@ class SideChapters extends Component {
 
     return (
       <div
-        class="side-section__chapter"
+        className="side-section__chapter"
         onClick={() => setSubsKeyAndChapterKey(subsKey, chapterKey)}
       >
-        <div class="side-chapter__number">{chapterKey}</div>
-        <div class="side-chapter__main">
-          <p class="side-chapter__neime">
+        <div className="side-chapter__number">{chapterKey}</div>
+        <div className="side-chapter__main">
+          <p className="side-chapter__neime">
             {SLEEPWELL[subsKey]['chapters'][chapterKey]['name']}
           </p>
         </div>
@@ -57,20 +56,20 @@ class SideSubsection extends Component {
     let {subsKey, setSubsKeyAndChapterKey} = this.props
 
     return (
-      <div class="side-menu__subsection">
-        <div class="side-section__number">{subsKey}</div>
+      <div className="side-menu__subsection">
+        <div className="side-section__number">{subsKey}</div>
         <div
-          class="side-section__main"
+          className="side-section__main"
           onClick={() =>
             this.setState(prevState => ({
               dropdownIsOpen: !prevState.dropdownIsOpen,
             }))
           }
         >
-          <p class="side-section__neime">{SLEEPWELL[subsKey]['name']}</p>
+          <p className="side-section__neime">{SLEEPWELL[subsKey]['name']}</p>
         </div>
         {this.state.dropdownIsOpen ? (
-          <div class="side-section__dropdown">
+          <div className="side-section__dropdown">
             {Object.keys(SLEEPWELL[subsKey]['chapters']).map(chapterKey => (
               <SideChapters
                 chapterKey={chapterKey}
@@ -87,55 +86,88 @@ class SideSubsection extends Component {
 }
 
 class BookBody extends Component {
+  state = {
+    isDone: this.props.chapterIsDone,
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.chapterIsDone !== prevProps.chapterIsDone)
+      this.setState({isDone: this.props.chapterIsDone})
+  }
+
   render () {
-    let {subsKey, chapterKey, chaptersState} = this.props
+    let {subsKey, chapterKey, toggleChapterState,setSubsKeyAndChapterKey, lastChapterInCurrentArray, biggerFontSize} = this.props
+    let checkBlockStyle = 'donesect__done-check'
+    let checkText = 'CHECK<br/>IF DONE'
+    let doneTextSize = null
+    if (this.state.isDone) {
+      checkText = 'DONE'
+      doneTextSize = '14px'
+      checkBlockStyle += ' done'
+    }
+    let prevChapterKey = (+this.props.chapterKey - 0.1).toFixed(1)
+    let nextChapterKey = (+this.props.chapterKey + 0.1).toFixed(1)
+    let navigationPrevStyle = "navigation__prev"
+    let navigationNextStyle = "navigation__next"
+    if(+prevChapterKey === +subsKey) {
+      navigationPrevStyle += " hidden"
+    }
+    if(+nextChapterKey > +lastChapterInCurrentArray) {
+      navigationNextStyle += " hidden"
+    }
+    let readerClass = "reader__book"
+    if(biggerFontSize) {
+      readerClass = "reader__book bigger-font"
+    }
+
+
     return (
-      <div class="reader__book">
-        <div class="book__bookbody">
-          <h1 class="bookbody__h1">
+      <div className={readerClass}>
+        <div className="book__bookbody">
+          <h1 className="bookbody__h1">
             {SLEEPWELL[subsKey]['chapters'][chapterKey]['name']}
           </h1>
-          <p class="bookbody__paragraph">
+          <div className="bookbody__paragraph">
             {Parser(SLEEPWELL[subsKey]['chapters'][chapterKey]['text'])}
-          </p>
+          </div>
         </div>
-        <div class="book__bookfooter">
-          <div class="bookfooter__donesect">
-            <div class="donesect__top">
-              <p class="donesect__headline">
+        <div className="book__bookfooter">
+          <div className="bookfooter__donesect">
+            <div className="donesect__top">
+              <p className="donesect__headline">
                 Please mark if you did it already
               </p>
-              <div class="donesect__done-check">
-                <p class="check-done-t">
-                  CHECK
-                  <br/>
-                  IF DONE
+              <div className={checkBlockStyle}
+                   onClick={() => toggleChapterState(subsKey, chapterKey)}
+              >
+                <p className="check-done-t" style={{fontSize: doneTextSize}}>
+                  {Parser(checkText)}
                 </p>
-                <div class="check-box"/>
+                <div className="check-box"/>
               </div>
             </div>
-            <div class="donesect__bottom">
-              <p class="donsect__text">
+            <div className="donesect__bottom">
+              <p className="donsect__text">
                 It’s very important that you not just red the chapter but
                 started to implement it in your life. Or, you can do it later
                 through dashboard.
               </p>
             </div>
           </div>
-          <div class="bookfooter__navigation">
-            <div class="navigation__prev">
-              <img src={greenArrow} alt="" class="navigation__arrow"/>
-              <div class="prev__info">
-                <p class="prev__name">Prev chapter name</p>
-                <p class="prev__number">Previous chapter 2.2</p>
+          <div className="bookfooter__navigation">
+            <div className={navigationPrevStyle} onClick={() => setSubsKeyAndChapterKey(subsKey, prevChapterKey)}>
+              <img src={greenArrow} alt="" className="navigation__arrow"/>
+              <div className="prev__info">
+                <p className="prev__name">Prev chapter name</p>
+                <p className="prev__number">Previous chapter {prevChapterKey}</p>
               </div>
             </div>
-            <div class="navigation__next">
-              <div class="next__info">
-                <p class="next__name">Next chapter name</p>
-                <p class="next__number">Next chapter 2.4</p>
-              </div>
-              <img src={greenArrow} alt="" class="navigation__arrow next"/>
+              <div className={navigationNextStyle} onClick={() => setSubsKeyAndChapterKey(subsKey, nextChapterKey)}>
+                <div className="next__info">
+                  <p className="next__name">Next chapter name</p>
+                  <p className="next__number">Next chapter {nextChapterKey}</p>
+                </div>
+              <img src={greenArrow} alt="" className="navigation__arrow next"/>
             </div>
           </div>
         </div>
@@ -148,34 +180,51 @@ class Reader extends Component {
   state = {
     subsKey: this.props.subsKey,
     chapterKey: this.props.chapterKey,
+    biggerFontSize: false,
   }
 
   render () {
-    let {goToPage} = this.props
+    let {
+      goToPage,
+      chaptersState,
+      toggleChapterState,
+    } = this.props
+
+    let switchFontSize = () => {
+      this.setState(prevState => ({biggerFontSize: !prevState.biggerFontSize}))
+    }
+    let fontTogglerClass = "topline__switch"
+    if(this.state.biggerFontSize) {
+      fontTogglerClass = "topline__switch bigger-font-active"
+    }
 
     let setSubsKeyAndChapterKey = (subsKey, chapterKey) => {
       this.setState({subsKey: subsKey, chapterKey: chapterKey})
     }
+    let currentSubsectionArray = Object.keys(chaptersState[this.state.subsKey]);
+    let lastChapterInCurrentArray = currentSubsectionArray.pop();
 
     return (
-      <div class="reader-main">
-        <div class="container reader">
-          <div class="overlay"/>
-          <div class="reader__side-menu">
-            <div class="sidemenu__btn">
-              <img src={cross} alt="" class="menubtn__book"/>
-              <p class="menubtn__text">close</p>
+      <div className="reader-main">
+        <div className="container reader">
+          <div className="overlay"/>
+          <div className="reader__side-menu">
+            <div className="sidemenu__btn">
+              <img src={cross} alt="" className="menubtn__book"/>
+              <p className="menubtn__text">close</p>
             </div>
-            <img src={moon} alt="" class="side-menu__moon"/>
-            <img src={neptune} alt="" class="side-menu__neptune"/>
-            <div class="side-menu__head">
-              <div class="side-menu__back-btn" onClick={() => goToPage('2')}>
-                <img src={pointingHand} alt="" class="back-btn__image"/>
-                <p class="back-btn__text">Back to Sleep Dashboard</p>
+            <img src={moon} alt="" className="side-menu__moon"/>
+            <img src={neptune} alt="" className="side-menu__neptune"/>
+            <div className="side-menu__head">
+              <div className="side-menu__back-btn"
+                   onClick={() => goToPage('2')}>
+                <img src={pointingHand} alt="" className="back-btn__image"/>
+                <p className="back-btn__text">Back to Sleep Dashboard</p>
               </div>
-              <h2 class="side-menu__headline">How to Sleep Well Every Day</h2>
+              <h2 className="side-menu__headline">How to Sleep Well Every
+                Day</h2>
             </div>
-            <div class="side-menu__table">
+            <div className="side-menu__table">
               {Object.keys(SLEEPWELL).map(subsKey => (
                 <SideSubsection
                   subsKey={subsKey}
@@ -185,23 +234,23 @@ class Reader extends Component {
               ))}
             </div>
           </div>
-          <div class="reader__mainpart">
-            <div class="reader__topline">
-              <div class="topline__container">
+          <div className="reader__mainpart">
+            <div className="reader__topline">
+              <div className="topline__container">
                 <BookTopline
                   subsKey={this.state.subsKey}
                   chapterKey={this.state.chapterKey}
                 />
-                <div class="topline__switch">
-                  <p class="switch__name">Font Size</p>
-                  <div class="switch__buttons">
-                    <div class="switch__left">A</div>
-                    <div class="switch__right">A</div>
+                <div className={fontTogglerClass} onClick={switchFontSize}>
+                  <p className="switch__name">Font Size</p>
+                  <div className="switch__buttons">
+                    <div className="switch__left">A</div>
+                    <div className="switch__right">A</div>
                   </div>
                 </div>
-                <div class="topline__menubtn">
-                  <img src="images/book.svg" alt="" class="menubtn__book"/>
-                  <p class="menubtn__text">
+                <div className="topline__menubtn">
+                  <img src="images/book.svg" alt="" className="menubtn__book"/>
+                  <p className="menubtn__text">
                     Book
                     <br/>
                     Contents
@@ -209,15 +258,20 @@ class Reader extends Component {
                 </div>
               </div>
             </div>
-            <ReactCSSTransitionGroup
-              transitionName="fading"
-            >
-              <BookBody
-                subsKey={this.state.subsKey}
-                chapterKey={this.state.chapterKey}
-                key={this.state.subsKey + this.state.chapterKey}
-              />
-            </ReactCSSTransitionGroup>
+            {/*<ReactCSSTransitionGroup*/}
+            {/*  transitionName="fading"*/}
+            {/*>*/}
+            <BookBody
+              subsKey={this.state.subsKey}
+              chapterKey={this.state.chapterKey}
+              chapterIsDone={chaptersState[this.state.subsKey][this.state.chapterKey]}
+              lastChapterInCurrentArray = {lastChapterInCurrentArray}
+              biggerFontSize = {this.state.biggerFontSize}
+              toggleChapterState={toggleChapterState}
+              setSubsKeyAndChapterKey={setSubsKeyAndChapterKey}
+              key={this.state.subsKey + this.state.chapterKey}
+            />
+            {/*</ReactCSSTransitionGroup>*/}
           </div>
         </div>
       </div>

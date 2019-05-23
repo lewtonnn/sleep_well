@@ -1,17 +1,24 @@
 .side-menu__neptune {
   position: fixed;
   z-index: -1;
-
 }
-
 .side-section__dropdown {
   height: auto;
-  /*display: none;*/
 }
-
 .book__topline {
   position: static;
   width: 100%
+}
+.topline__section-name {
+  font-weight: 700;
+}
+.topline__switch.bigger-font-active .switch__left {
+  background-color: #5f6e76;
+  color: #fff;
+}
+.topline__switch.bigger-font-active .switch__right {
+  background-color: #fff;
+  color: #5f6e76;
 }
 .reader__side-menu {
   box-shadow: -15px 0px 20px 0 #0000000d;
@@ -28,9 +35,15 @@
   padding-bottom: 55px;
 }
 
+.reader__book.bigger-font {
+  font-size: 130% !important;
+}
+
 .book__bookbody {
   height: 100%;
 }
+
+
 
 .book__bookfooter {
   height: 100%;
@@ -57,4 +70,25 @@
 .example-leave.example-leave-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in;
+}
+
+.donesect__done-check {
+  cursor: pointer;
+}
+
+.donesect__done-check.done .check-box {
+  background-image: url("../images/checkmarkw.svg");
+  background-color: #178fe5;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.navigation__next {
+  margin-left: auto;
+}
+.hidden {
+  display: none;
+}
+
+.menubtn__book {
+  filter: brightness(0) invert(1);
 }

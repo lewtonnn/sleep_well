@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import Parser from 'html-react-parser'
-import Top from './Top.js'
-import pointingHand from '../images/pointing-hand.svg'
-import bookImg from '../images/book.svg'
-import crossIcon from '../images/cross-icon.svg'
-import { BOOKTABLE } from './booktable.js'
+import React, { Component } from "react"
+import Parser from "html-react-parser"
+import Top from "./Top.js"
+import pointingHand from "../images/pointing-hand.svg"
+import bookImg from "../images/book.svg"
+import crossIcon from "../images/cross-icon.svg"
+import { BOOKTABLE } from "./booktable.js"
 
 class Chapter extends Component {
   state = {
@@ -24,19 +24,20 @@ class Chapter extends Component {
       goToPage,
       setCurrentSubsKey,
       setCurrentChapterKey,
+      userData
     } = this.props
     let setSubsAndChapterAndGoToReader = () => {
-      goToPage('3')
+      goToPage("3")
       setCurrentSubsKey(subsKey)
       setCurrentChapterKey(chapterKey)
     }
-    let chapterStyle = 'chapters__chapter'
-    let checkText = 'CHECK<br/>IF DONE'
+    let chapterStyle = "chapters__chapter"
+    let checkText = "CHECK<br/>IF DONE"
     let doneTextSize = null
     if (this.state.isDone) {
-      chapterStyle += ' done'
-      checkText = 'DONE'
-      doneTextSize = '14px'
+      chapterStyle += " done"
+      checkText = "DONE"
+      doneTextSize = "14px"
     }
     return (
       <div>
@@ -44,7 +45,7 @@ class Chapter extends Component {
           <div className="chapter__number">{chapterKey}</div>
           <div className="chapter__interface">
             <div className="chapter__name">
-              {BOOKTABLE[subsKey]['chapters'][chapterKey]['name']}
+              {BOOKTABLE[subsKey]["chapters"][chapterKey]["name"]}
             </div>
             <div
               className="chapter__read-link w-inline-block"
@@ -53,10 +54,7 @@ class Chapter extends Component {
               <p className="chapter-read-l">Read Chapter</p>
               <img src={bookImg} alt="" className="book-img"/>
             </div>
-            <div className="chapter__done-check" onClick={toggleChapterState}>
-              <p className="check-done-t" style={{fontSize: doneTextSize}}>
-                {Parser(checkText)}
-              </p>
+            <div className="chapter__done-check">
               <div className="check-box"/>
             </div>
           </div>
@@ -69,40 +67,33 @@ class Chapter extends Component {
 class Subsection extends Component {
   state = {
     dropdownIsOpen: false,
-    chapters: BOOKTABLE[this.props.subsKey]['chapters'],
+    chapters: this.chaptersState,
   }
 
   render () {
-    let {
-      goToPage,
-      subsKey,
-      setCurrentSubsKey,
-      setCurrentChapterKey,
-      chaptersState,
-      toggleChapteState
-    } = this.props
-    const chapterCount = Object.keys(BOOKTABLE[subsKey]['chapters']).length
+    let {goToPage, subsKey, setCurrentSubsKey, setCurrentChapterKey, chaptersState, toggleChapterState} = this.props
+    const chapterCount = Object.keys(chaptersState).length
     let chaptersDone = 0
-    Object.keys(this.state.chapters).map(chapterKey => {
-      if (this.state.chapters[chapterKey].done) chaptersDone += 1
+    Object.keys(chaptersState).map(chapterKey => {
+      if (chaptersState[chapterKey]) {chaptersDone += 1}
       return chaptersDone
     })
-    let ddHandlerStyle = 'chapter__open-dd w-inline-block'
-    let progressBlockStyle = 'subsection__progress'
-    let subsectionTxtStyle = 'subsection__txt'
+    let ddHandlerStyle = "chapter__open-dd w-inline-block"
+    let progressBlockStyle = "subsection__progress"
+    let subsectionTxtStyle = "subsection__txt"
     if (chapterCount <= 0) {
-      ddHandlerStyle += ' hidden'
-      progressBlockStyle += ' hidden'
+      ddHandlerStyle += " hidden"
+      progressBlockStyle += " hidden"
     }
-    let subsectionStyle = 'main__subsection'
-    let ddText = 'Click here to know which steps you should learn'
+    let subsectionStyle = "main__subsection"
+    let ddText = "Click here to know which steps you should learn"
     let ddIcon = pointingHand
-    let ddIconStyle = 'dd-icon'
+    let ddIconStyle = "dd-icon"
     if (this.state.dropdownIsOpen) {
-      subsectionStyle += ' opened'
-      ddText = 'Click here to close steps'
+      subsectionStyle += " opened"
+      ddText = "Click here to close steps"
       ddIcon = crossIcon
-      ddIconStyle += ' cross'
+      ddIconStyle += " cross"
     }
     return (
       <div>
@@ -110,7 +101,7 @@ class Subsection extends Component {
           <div className="subsection__number">{subsKey}</div>
           <div className="subsection__interface">
             <div className={subsectionTxtStyle}>
-              <h3 className="subsection__name">{BOOKTABLE[subsKey]['name']}</h3>
+              <h3 className="subsection__name">{BOOKTABLE[subsKey]["name"]}</h3>
               <div
                 className={ddHandlerStyle}
                 onClick={() =>
@@ -127,18 +118,18 @@ class Subsection extends Component {
               <div className="progress__percents">
                 <p className="pp-text">Progress with your sleep quality</p>
                 <p className="prog-num">
-                  {Math.floor((chaptersDone / chapterCount) * 100) + '%'}
+                  {Math.floor((chaptersDone / chapterCount) * 100) + "%"}
                 </p>
               </div>
               <div className="progress-bar">
                 <div
                   className="current-progress"
-                  style={{width: (chaptersDone / chapterCount) * 100 + '%'}}
+                  style={{width: (chaptersDone / chapterCount) * 100 + "%"}}
                 />
               </div>
             </div>
             <h3 className="subsection__name tablet">
-              {BOOKTABLE[subsKey]['name']}
+              {BOOKTABLE[subsKey]["name"]}
             </h3>
           </div>
           <div className="subsection__dropdown-content">
@@ -146,12 +137,12 @@ class Subsection extends Component {
               Here are steps to Good Night Sleep you should learn:
             </p>
             <div className="dropdown__chapters">
-              {Object.keys(BOOKTABLE[subsKey]['chapters']).map(chapterKey => (
+              {Object.keys(BOOKTABLE[subsKey]["chapters"]).map(chapterKey => (
                 <Chapter
                   subsKey={subsKey}
                   chapterKey={chapterKey}
                   chapterIsDone={chaptersState[chapterKey]}
-                  toggleChapterState={this.toggleChapterState(chapterKey)}
+                  toggleChapterState={toggleChapterState}
                   goToPage={goToPage}
                   key={chapterKey}
                   setCurrentSubsKey={setCurrentSubsKey}
@@ -168,21 +159,33 @@ class Subsection extends Component {
 
 class Dashboard extends Component {
   render () {
-    let {goToPage, setCurrentSubsKey, setCurrentChapterKey, chaptersState, toggleChapteState} = this.props
+    let {
+      goToPage,
+      setCurrentSubsKey,
+      setCurrentChapterKey,
+      chaptersState,
+      toggleChapterState,
+      userData,
+      userAuthorized
+    } = this.props
     return (
       <div>
-        <Top/>
+        <Top
+          goToPage = {goToPage}
+          userData = {userData}
+          userAuthorized = {userAuthorized}
+        />
         <div className="main">
           <div className="container">
-            {Object.keys(BOOKTABLE).map(subsKey => (
+            {Object.keys(chaptersState).map(subsKey => (
               <Subsection
                 subsKey={subsKey}
                 key={subsKey}
                 goToPage={goToPage}
                 setCurrentSubsKey={setCurrentSubsKey}
                 setCurrentChapterKey={setCurrentChapterKey}
-                chaptersState={chaptersState}
-                toggleChapteState={toggleChapteState}
+                chaptersState={chaptersState[subsKey]}
+                toggleChapterState={toggleChapterState}
               />
             ))}
           </div>

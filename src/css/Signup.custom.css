@@ -1,0 +1,22 @@
+.personal__wrapper {
+  margin-top: 40px;
+}
+.password-error {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+}
+.form-buttons__wrapper {
+  align-items: flex-end;
+}
+.inline-button {
+  font-size: 16px;
+  text-decoration: underline;
+}
+.profile__submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 60px;
+}

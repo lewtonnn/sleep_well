@@ -1,0 +1,14 @@
+.check-box {
+  cursor: initial;
+}
+.user-area__photo {
+  width: 80px;
+  height: 80px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-position: center;
+  -webkit-background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
