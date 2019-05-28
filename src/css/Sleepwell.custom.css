@@ -156,7 +156,7 @@ td {
   }
 }
 
-@media (max-width: 991px) {
+@media screen and (max-width: 991px) {
   .button__circle {
     justify-content: flex-start;
     width: 22px;
@@ -164,6 +164,10 @@ td {
   .button__arrow {
     filter: brightness(100);
     width: 22px;
+  }
+  .welcome__moon {
+    top: -40px;
+    right: -40px;
   }
 }
 

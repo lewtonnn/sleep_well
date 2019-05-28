@@ -1,5 +1,20 @@
+.overlay {
+  display: block;
+  left: auto;
+  right: -1000px;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  -ms-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.overlay.show {
+  right: 0;
+  opacity: 1;
+}
+
 .side-menu__neptune {
-  position: fixed;
   z-index: -1;
 }
 .side-section__dropdown {
@@ -20,33 +35,56 @@
   background-color: #fff;
   color: #5f6e76;
 }
+.book__bookbody {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-top: 140px;
+  padding-bottom: 80px;
+}
+.reader__topline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 .reader__side-menu {
   box-shadow: -15px 0px 20px 0 #0000000d;
 }
-.side-menu__table {
-  padding-bottom: 200px;
+.reader__side-menu {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-bottom: 0;
+  right: -500px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
 }
-
+.side-menu__table {
+  padding-bottom: 80px;
+}
 .reader__mainpart {
   box-shadow: 15px 0px 20px 0 #0000000d;
 }
 
 .reader__book {
+  position: relative;
   padding-bottom: 55px;
 }
 
-.reader__book.bigger-font {
+.book__bookbody.bigger-font {
   font-size: 130% !important;
+  line-height: 130% !important;
 }
-
-.book__bookbody {
-  height: 100%;
-}
-
 
 
 .book__bookfooter {
   height: 100%;
+  padding: 0;
 }
 
 .full-width-image.at-beginning {
@@ -91,4 +129,23 @@
 
 .menubtn__book {
   filter: brightness(0) invert(1);
+}
+
+@media screen and (max-width: 991px) {
+  .side-menu__neptune {
+    left: auto;
+    right: -300px;
+  }
+
+  .reader__side-menu.show {
+    right: 0;
+  }
+
+  .side-menu__moon.show {
+    right: 200px;
+  }
+
+  .sidemenu__btn {
+    position: absolute;
+  }
 }

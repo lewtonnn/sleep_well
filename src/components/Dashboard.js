@@ -4,6 +4,7 @@ import Top from "./Top.js"
 import pointingHand from "../images/pointing-hand.svg"
 import bookImg from "../images/book.svg"
 import crossIcon from "../images/cross-icon.svg"
+import lockIcon from "../images/lock-icon.svg"
 import { BOOKTABLE } from "./booktable.js"
 
 class Chapter extends Component {
@@ -23,8 +24,7 @@ class Chapter extends Component {
       toggleChapterState,
       goToPage,
       setCurrentSubsKey,
-      setCurrentChapterKey,
-      userData
+      setCurrentChapterKey
     } = this.props
     let setSubsAndChapterAndGoToReader = () => {
       goToPage("3")
@@ -54,7 +54,7 @@ class Chapter extends Component {
               <p className="chapter-read-l">Read Chapter</p>
               <img src={bookImg} alt="" className="book-img"/>
             </div>
-            <div className="chapter__done-check">
+            <div className="chapter__done-check" onClick={() => {toggleChapterState(subsKey, chapterKey)}}>
               <div className="check-box"/>
             </div>
           </div>
@@ -71,7 +71,7 @@ class Subsection extends Component {
   }
 
   render () {
-    let {goToPage, subsKey, setCurrentSubsKey, setCurrentChapterKey, chaptersState, toggleChapterState} = this.props
+    let {goToPage, subsKey, setCurrentSubsKey, setCurrentChapterKey, chaptersState, toggleChapterState, bonusSubsOpen} = this.props
     const chapterCount = Object.keys(chaptersState).length
     let chaptersDone = 0
     Object.keys(chaptersState).map(chapterKey => {
@@ -95,9 +95,18 @@ class Subsection extends Component {
       ddIcon = crossIcon
       ddIconStyle += " cross"
     }
+    let deactivatedStyle = ""
+    let lockIconStyle = "hidden"
+    let subsToLock = ['7']
+    if(subsToLock.indexOf(subsKey) !== -1) {
+      if (!bonusSubsOpen) {
+        deactivatedStyle = "deactivated"
+        lockIconStyle = ""
+      }
+    }
     return (
       <div>
-        <div className={subsectionStyle}>
+        <div className={subsectionStyle + ' ' + deactivatedStyle}>
           <div className="subsection__number">{subsKey}</div>
           <div className="subsection__interface">
             <div className={subsectionTxtStyle}>
@@ -151,6 +160,7 @@ class Subsection extends Component {
               ))}
             </div>
           </div>
+          <img src={lockIcon} alt="Section Locked" className={"lock-icon " + lockIconStyle}/>
         </div>
       </div>
     )
@@ -166,7 +176,8 @@ class Dashboard extends Component {
       chaptersState,
       toggleChapterState,
       userData,
-      userAuthorized
+      userAuthorized,
+      bonusSubsOpen
     } = this.props
     return (
       <div>
@@ -185,6 +196,7 @@ class Dashboard extends Component {
                 setCurrentSubsKey={setCurrentSubsKey}
                 setCurrentChapterKey={setCurrentChapterKey}
                 chaptersState={chaptersState[subsKey]}
+                bonusSubsOpen = {bonusSubsOpen}
                 toggleChapterState={toggleChapterState}
               />
             ))}

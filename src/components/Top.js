@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import burger from '../images/burger.svg'
+import $ from 'jquery'
 
 class Top extends Component {
 
@@ -11,6 +12,7 @@ class Top extends Component {
     } = this.props
 
     return (
+
       <div>
         <div className="top">
           <div className="container">
@@ -28,7 +30,7 @@ class Top extends Component {
                 ) : (
                   <div className="top__user-area">
                     <div className="user-area__account">
-                      <a href="javascript:" className="user-area__acc-link" onClick={() => goToPage('5')}>SIGN IN</a>
+                      <a href="javascript:" className="user-area__acc-link" onClick={() => goToPage('5')}>Sign In/Sign Up</a>
                     </div>
                   </div>
                 )}

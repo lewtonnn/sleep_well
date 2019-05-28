@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Cookies from 'js-cookie'
 import $ from 'jquery'
@@ -8,6 +8,7 @@ import Welcome from './components/Welcome.js'
 import Reader from './components/Reader.js'
 import Profile from './components/Profile.js'
 import Signup from './components/Signup.js'
+import Redirect from './components/Redirect.js'
 import './css/Webflow.css'
 import './css/Sleepwell.css'
 import './css/Sleepwell.custom.css'
@@ -15,14 +16,18 @@ import './css/Reader.custom.css'
 import './css/Profile.custom.css'
 import './css/Dashboard.custom.css'
 import './css/Signup.custom.css'
+import './css/Redirect.custom.css'
 
 class App extends Component {
   state = {
-    // currentPage: '1',
+    currentPage: '1',
     currentSubsKey: '1',
     currentChapterKey: '1.1',
     isLoaded: false,
     userAuthorized: false,
+    totalChaptersCount: 43,
+    totalDoneChapters: 0,
+    overallProgress: 0,
     chaptersState: {
       1: {
         1.1: false,
@@ -84,8 +89,8 @@ class App extends Component {
     },
   }
 
-  signInUser = (e,userLogin, userPass) => {
-    if(e) {e.preventDefault()}
+  signInUser = (e, userLogin, userPass) => {
+    if (e) {e.preventDefault()}
     $.ajax({
       type: 'GET',
       url: 'https://godnattssovn.com/sleepwell-book/db/db_api.php',
@@ -95,28 +100,25 @@ class App extends Component {
         password: userPass,
       },
       success: data => {
-        console.log("OK")
+        console.log('OK')
         this.setState({
           isLoaded: true,
           userData: data,
           chaptersState: JSON.parse(data.chapters),
-          userAuthorized: true
+          userAuthorized: true,
         })
-        let userPws =
         Cookies.set('swb_l', btoa(userLogin))
         Cookies.set('swb_p', btoa(userPass))
       },
-      error: error =>  {
+      error: error => {
         console.log('ERROR')
         this.setState({
           error: true,
-          isLoaded: true
+          isLoaded: true,
         })
       },
     })
   }
-
-
 
   goToPage = destinationPage => this.setState({currentPage: destinationPage})
 
@@ -130,6 +132,26 @@ class App extends Component {
     this.setState({chaptersState: chaptersStateCopy})
   }
 
+  updateChapters = (e, userLogin, userPass) => {
+    if (e) e.preventDefault()
+    $.ajax({
+      type: 'GET',
+      url: 'https://godnattssovn.com/sleepwell-book/db/db_api.php',
+      data: {
+        command: 'update_chapters',
+        login: userLogin,
+        hash: userPass,
+        chapters: JSON.stringify(this.state.chaptersState),
+      },
+      success: () => {
+        console.log('chapters in DB updated')
+      },
+      error: () => {
+        alert('Oops! An error occured. Please try again!')
+      },
+    })
+  }
+
   componentDidMount () {
     if (Cookies.get('swb_l') && Cookies.get('swb_p')) {
       let userLogin
@@ -141,23 +163,26 @@ class App extends Component {
         console.log(e)
       }
       this.signInUser(null, userLogin, userPass)
-      let defaultPic = "https://www.breastfeedingsos.co.nz/Content/Images/no-picture.png"
-      // let userDataCopy = JSON.parse(JSON.stringify(this.state.userData))
-      // $.get(this.state.userData.photo)
-      //   .fail(function() {
-      //     userDataCopy.photo = defaultPic
-      //     this.setState({
-      //       userData: userDataCopy
-      //     })
-      //   })
     } else {
       this.setState({
-        isLoaded: true
+        isLoaded: true,
       })
     }
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    if (prevState.chaptersState !== this.state.chaptersState) {
+      console.log('chapters changed')
+      this.updateChapters(null, this.state.userData.login, this.state.userData.password)
+    }
+  }
+
   render () {
+
+    let jsonChaptersState = JSON.stringify(this.state.chaptersState)
+    let totalDoneChapters = (jsonChaptersState.match(/true/g) || []).length
+    let bonusSubsOpen = totalDoneChapters >= 39
+
     let {error, isLoaded} = this.state
     if (error) {
       return (
@@ -169,19 +194,18 @@ class App extends Component {
       )
     } else {
       return (
-        <Router>
         <div>
           <ReactCSSTransitionGroup transitionName="fading">
-            {/*{this.state.currentPage === '1' ? (*/}
+            {this.state.currentPage === '1' ? (
               <Welcome
                 goToPage={this.goToPage}
                 key="1"
               />
-            {/*) : null}*/}
+            ) : null}
           </ReactCSSTransitionGroup>
 
           <ReactCSSTransitionGroup transitionName="fading">
-            {/*{this.state.currentPage === '2' ? (*/}
+            {this.state.currentPage === '2' ? (
               <Dashboard
                 goToPage={this.goToPage}
                 setCurrentSubsKey={this.setCurrentSubsKey}
@@ -189,49 +213,65 @@ class App extends Component {
                 chaptersState={this.state.chaptersState}
                 toggleChapterState={this.toggleChapterState}
                 userData={this.state.userData}
-                userAuthorized ={this.state.userAuthorized}
+                userAuthorized={this.state.userAuthorized}
+                bonusSubsOpen = {bonusSubsOpen}
                 key="2"
               />
-            {/*) : null}*/}
+            ) : null}
           </ReactCSSTransitionGroup>
 
           <ReactCSSTransitionGroup transitionName="fading">
-            {/*{this.state.currentPage === '3' ? (*/}
+            {this.state.currentPage === '3' ? (
               <Reader
                 goToPage={this.goToPage}
                 subsKey={this.state.currentSubsKey}
                 chapterKey={this.state.currentChapterKey}
                 chaptersState={this.state.chaptersState}
                 toggleChapterState={this.toggleChapterState}
+                bonusSubsOpen = {bonusSubsOpen}
                 key="3"
               />
-            {/*) : null}*/}
+            ) : null}
           </ReactCSSTransitionGroup>
 
           <ReactCSSTransitionGroup transitionName="fading">
-            {/*{this.state.currentPage === '4' ? (*/}
+            {this.state.currentPage === '4' ? (
               <Profile
                 goToPage={this.goToPage}
                 userData={this.state.userData}
+                totalChaptersCount = {this.state.totalChaptersCount}
+                totalDoneChapters = {totalDoneChapters}
                 key="4"
               />
-            {/*) : null}*/}
+            ) : null}
           </ReactCSSTransitionGroup>
 
           <ReactCSSTransitionGroup transitionName="fading">
-            {/*{this.state.currentPage === '5' ? (*/}
+            {this.state.currentPage === '5' ? (
               <Signup
                 goToPage={this.goToPage}
                 userAuthorized={this.state.userAuthorized}
-                signInUser = {this.signInUser}
+                signInUser={this.signInUser}
                 key="5"/>
-            {/*) : null}*/}
+            ) : null}
           </ReactCSSTransitionGroup>
+
+          <ReactCSSTransitionGroup transitionName="fading">
+            {this.state.currentPage === '6' ? (
+              <Redirect
+                goToPage={this.goToPage}
+                key="6"/>
+            ) : null}
+          </ReactCSSTransitionGroup>
+
+          {/*<Router>*/}
+          {/*  <Switch>*/}
+          {/*    <Route path="/" exact component={Welcome}/>*/}
+          {/*    <Route path="/dashboard" component={Dashboard}/>*/}
+          {/*    <Route path="/reader" component={Reader}/>*/}
+          {/*  </Switch>*/}
+          {/*</Router>*/}
         </div>
-          <Route path="/" exact component={Welcome}/>
-          {/*<Route path="/dashboard" component={Dashboard}/>*/}
-          {/*<Route path="/reader" exact component={Reader}/>*/}
-        </Router>
       )
     }
   }

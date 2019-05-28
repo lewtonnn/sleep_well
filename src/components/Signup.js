@@ -12,15 +12,12 @@ class Signup extends Component {
     signupModule: false,
   }
 
-  // componentDidMount () {
-  //   if(this.props.userAuthorized) window.location.reload()
-  // }
-
   componentDidUpdate (prevProps) {
     if (this.props.userAuthorized !== prevProps.userAuthorized)
-      this.setState({userAuthorized: this.props.userAuthorized})
-    if  (this.state.userAuthorized)
-      window.location.reload()
+      this.props.goToPage('6')
+    //   this.setState({userAuthorized: this.props.userAuthorized})
+    // if (this.state.userAuthorized)
+    //   this.props.goToPage('6')
   }
 
   render () {
@@ -45,13 +42,19 @@ class Signup extends Component {
         url: 'https://godnattssovn.com/sleepwell-book/db/db_api.php',
         data: formData,
         success: function (data) {
-          console.log('data')
-          setTimeout(goToPage('2'), 500)
         },
         error: function () {
           console.log('ERROR')
         },
       })
+    }
+
+    let showPassword = () => {
+      if ($('input.show-password').prop('checked')) {
+        $('#pass').attr('type', 'text')
+      } else {
+        $('#pass').attr('type', 'password')
+      }
     }
 
     return (
@@ -73,10 +76,14 @@ class Signup extends Component {
                     <div className="login__wrapper">
                       <label htmlFor="login" className="profile__label">Username</label>
                       <input type="text" id="login" minLength="5" maxLength="32" name="login" className="profile__text-input w-input"
-                             pattern="[A-Za-z0-9]+"/>
+                             pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{5,20}$"/>
                       <label htmlFor="pass" className="profile__label">Password</label>
-                      <input type="text" id="pass" minLength="8" maxLength="32" name="password"
+                      <input type="password" id="pass" minLength="8" maxLength="32" name="password"
                              className="profile__text-input w-input"/>
+                      <div className="flex-wrapper">
+                        <input type="checkbox" className="show-password" id="show-password" onChange={() => showPassword()}/>
+                        <label htmlFor="show-password" className="profile__label show-password">Show Password</label>
+                      </div>
                       <div className="form-buttons__wrapper">
                         <div className="profile__submit w-button cancel" onClick={() => goToPage('2')}>Back To Dashboard</div>
                         <a href="javascript:" className="inline-button" onClick={() => switchModule()}>Don't have an account?</a>
@@ -90,17 +97,19 @@ class Signup extends Component {
               ) : null}
               {this.state.signupModule ? (
                 <div className="form-block w-form">
-                  <form id="signup-form" name="email-form" className="profile__form" onSubmit={() => sendForm()}>
-
+                  <form id="signup-form" name="email-form" className="profile__form" onSubmit={(e) => sendForm(e)}>
                     <input type="hidden" name="command" value="signup"/>
-
                     <div className="login__wrapper">
                       <label htmlFor="login" className="profile__label">Username</label>
                       <input type="text" id="login" minLength="5" maxLength="32" name="login" className="profile__text-input w-input"
-                             pattern="[A-Za-z0-9]+"/>
+                             pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{5,20}$" placeholder="Minimum 5 characters, maximun 20"/>
                       <label htmlFor="pass" className="profile__label">Password</label>
-                      <input type="text" id="pass" minLength="8" maxLength="32" name="password"
-                             className="profile__text-input w-input"/>
+                      <input type="password" id="pass" minLength="8" maxLength="32" name="password"
+                             className="profile__text-input w-input" placeholder="Minimum 8 characters"/>
+                      <div className="flex-wrapper">
+                        <input type="checkbox" className="show-password" id="show-password" onChange={() => showPassword()}/>
+                        <label htmlFor="show-password" className="profile__label show-password">Show Password</label>
+                      </div>
                       {/*<label htmlFor="pass-again" className="profile__label">Password Again</label>*/}
                       {/*<input type="password" id="pass-again" minLength="8" maxLength="32" name="pass-again"*/}
                       {/*       className="profile__text-input w-input"*/}
@@ -119,17 +128,12 @@ class Signup extends Component {
                              placeholder="example@example.com" required=""/>
                       <div className="form-buttons__wrapper">
                         <div className="profile__submit w-button cancel" onClick={() => switchModule()}>Cancel</div>
-                        <div type="submit" className="profile__submit w-button">Sign Up</div>
+                        <button type="submit" className="profile__submit w-button">Sign Up</button>
                       </div>
                     </div>
                   </form>
                 </div>
               ) : null}
-              {/*<div className="side-menu__back-btn profile"*/}
-              {/*     onClick={() => goToPage('2')}>*/}
-              {/*  <img src={pointingHand} alt="" className="back-btn__image"/>*/}
-              {/*  <p className="back-btn__text">Back to Sleep Dashboard</p>*/}
-              {/*</div>*/}
             </div>
           </div>
         </div>

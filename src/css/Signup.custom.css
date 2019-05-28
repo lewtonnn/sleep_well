@@ -20,3 +20,12 @@
   width: 120px;
   height: 60px;
 }
+.flex-wrapper {
+  display: flex;
+  align-items: center;
+}
+.profile__label.show-password {
+  font-weight: normal;
+  margin-bottom: 0;
+  margin-left: 3px;
+}

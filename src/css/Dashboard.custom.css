@@ -12,3 +12,38 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+.deactivated {
+  position: relative;
+}
+.main__subsection.deactivated > div {
+  opacity: 0.7;
+}
+.deactivated::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: ' ';
+}
+.lock-icon {
+  width: 28px;
+  height: 35px;
+  background-image: url("../images/lock-icon.svg");
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 105px;
+  top: 15px;
+}
+.lock-icon.hidden {
+  display: none;
+}
+@media screen and (max-width: 479px) {
+  .lock-icon {
+    left: 46px;
+    width: 20px;
+    height: 25px;
+  }
+}

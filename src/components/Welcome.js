@@ -11,27 +11,27 @@ class Welcome extends Component {
     let goToPage = this.props.goToPage
     return (
       <div className="welcome-main">
+        <div className="welcome__button" onClick={() => goToPage('2')}>
+          <p className="button__text">Go to Dashboard</p>
+          <div className="button__circle">
+            <img src={arrow} alt="" className="button__arrow"/>
+          </div>
+        </div>
         <div className="container welcome">
           <img src={moon} alt="" className="welcome__moon"/>
           <img src={neptune} alt="" className="welcome__neptune"/>
           <img src={star} alt="" className="welcome__star"/>
-          {/*<div className="welcome__button" onClick={() => goToPage('2')}>*/}
-          {/*  <p className="button__text">Go to Dashboard</p>*/}
-          {/*  <div className="button__circle">*/}
-          {/*    <img src={arrow} alt="" className="button__arrow"/>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-          <Router>
-            <Link className="welcome__button"
-              // onClick={() => goToPage('2')}
-                  to="/reader"
-            >
-              <p className="button__text">Go to Dashboard</p>
-              <div className="button__circle">
-                <img src={arrow} alt="" className="button__arrow"/>
-              </div>
-            </Link>
-          </Router>
+          {/*<Router>*/}
+          {/*  <Link className="welcome__button"*/}
+          {/*    // onClick={() => goToPage('2')}*/}
+          {/*        to="/reader"*/}
+          {/*  >*/}
+          {/*    <p className="button__text">Go to Dashboard</p>*/}
+          {/*    <div className="button__circle">*/}
+          {/*      <img src={arrow} alt="" className="button__arrow"/>*/}
+          {/*    </div>*/}
+          {/*  </Link>*/}
+          {/*</Router>*/}
           <div className="welcome__text-block">
             <h1 className="welcome__h1">How to Sleep Well Every Day</h1>
             <p className="welcome__paragraph first">
