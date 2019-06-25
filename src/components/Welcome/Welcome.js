@@ -1,37 +1,25 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import welcomeRoom from '../images/welcome-pic.jpeg'
-import arrow from '../images/arrow.svg'
-import moon from '../images/sleepwell-moon.svg'
-import star from '../images/shooting-star.svg'
-import neptune from '../images/cute-neptune.svg'
+import { Link } from 'react-router-dom'
+import welcomeRoom from '../../images/welcome-pic.jpeg'
+import arrow from '../../images/arrow.svg'
+import moon from '../../images/sleepwell-moon.svg'
+import star from '../../images/shooting-star.svg'
+import neptune from '../../images/cute-neptune.svg'
 
 class Welcome extends Component {
   render () {
-    let goToPage = this.props.goToPage
     return (
       <div className="welcome-main">
-        <div className="welcome__button" onClick={() => goToPage('2')}>
-          <p className="button__text">Go to Dashboard</p>
-          <div className="button__circle">
-            <img src={arrow} alt="" className="button__arrow"/>
-          </div>
-        </div>
+          <Link to="/dashboard" className="welcome__button">
+            <p className="button__text">Go to Dashboard</p>
+            <div className="button__circle">
+              <img src={arrow} alt="" className="button__arrow"/>
+            </div>
+          </Link>
         <div className="container welcome">
           <img src={moon} alt="" className="welcome__moon"/>
           <img src={neptune} alt="" className="welcome__neptune"/>
           <img src={star} alt="" className="welcome__star"/>
-          {/*<Router>*/}
-          {/*  <Link className="welcome__button"*/}
-          {/*    // onClick={() => goToPage('2')}*/}
-          {/*        to="/reader"*/}
-          {/*  >*/}
-          {/*    <p className="button__text">Go to Dashboard</p>*/}
-          {/*    <div className="button__circle">*/}
-          {/*      <img src={arrow} alt="" className="button__arrow"/>*/}
-          {/*    </div>*/}
-          {/*  </Link>*/}
-          {/*</Router>*/}
           <div className="welcome__text-block">
             <h1 className="welcome__h1">How to Sleep Well Every Day</h1>
             <p className="welcome__paragraph first">

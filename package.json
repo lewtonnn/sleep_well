@@ -1,23 +1,17 @@
 {
-  "name": "sleepwell",
-  "version": "0.1.0",
+  "name": "sleep_well",
+  "version": "1.0.1",
   "private": true,
-  "homepage": "https://godnattssovn.com/sleepwell-book/",
+  "homepage": "/app",
   "dependencies": {
-    "axios": "^0.18.0",
-    "bootstrap": "^4.3.1",
-    "html-react-parser": "^0.4.7",
-    "immutability-helper": "^3.0.0",
+    "html-react-parser": "^0.8.0",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.0",
     "react": "^16.8.2",
     "react-addons-css-transition-group": "^15.6.2",
-    "react-animate-on-change": "^2.1.1",
     "react-dom": "^16.5.2",
-    "react-pose": "^4.0.1",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^2.1.5",
-    "reactstrap": "^6.5.0"
+    "react-scripts": "^2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",

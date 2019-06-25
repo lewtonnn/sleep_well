@@ -19,6 +19,7 @@
   align-items: center;
   width: 120px;
   height: 60px;
+  min-width: 110px;
 }
 .flex-wrapper {
   display: flex;
@@ -28,4 +29,42 @@
   font-weight: normal;
   margin-bottom: 0;
   margin-left: 3px;
+}
+.login__error {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #c00;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  height: 1px;
+  opacity: 0;
+}
+.login__error.show {
+  height: auto;
+  opacity: 1;
+}
+
+@media (max-width: 479px) {
+  .form-block {
+    margin: 0;
+  }
+  .top-flex__info {
+    width: 100%;
+  }
+  .form-buttons__wrapper {
+    flex-wrap: wrap;
+  }
+  .inline-button {
+    order: 3;
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+  }
+  .login__error {
+    font-size: 14px;
+  }
 }

@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import burger from '../images/burger.svg'
-import $ from 'jquery'
+import { Link } from 'react-router-dom'
+import burger from '../../images/burger.svg'
+import defaultPic from '../../images/user.png'
 
-class Top extends Component {
+class DashboardTop extends Component {
 
   render () {
     let {
-      goToPage,
       userData,
       userAuthorized,
     } = this.props
@@ -23,14 +23,14 @@ class Top extends Component {
                   <div className="top__user-area">
                     <div className="user-area__account">
                       <p className="user-area__name">{userData.fname + ' ' + userData.lname}</p>
-                      <a href="#" className="user-area__acc-link" onClick={() => goToPage('4')}>My account</a>
+                      <Link href="#" className="user-area__acc-link" to={'/profile'}>My account</Link>
                     </div>
-                    <div className='user-area__photo' style={{backgroundImage: 'url(' + userData.photo + ')'}}></div>
+                    <div className='user-area__photo' style={{backgroundImage: 'url(' + userData.photo + '),url(' + defaultPic + ')'}}></div>
                   </div>
                 ) : (
                   <div className="top__user-area">
                     <div className="user-area__account">
-                      <a href="javascript:" className="user-area__acc-link" onClick={() => goToPage('5')}>Sign In/Sign Up</a>
+                      <Link className="user-area__acc-link" to={'/signup'}>Sign In/Sign Up</Link>
                     </div>
                   </div>
                 )}
@@ -50,4 +50,4 @@ class Top extends Component {
   }
 }
 
-export default Top
+export default DashboardTop

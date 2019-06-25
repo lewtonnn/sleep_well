@@ -3,6 +3,7 @@
   margin: 0 auto;
 }
 .profile__text-block {
+  padding-top: 65px;
   padding-bottom: 35px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -12,6 +13,8 @@
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  color: #178fe5;
+  cursor: pointer;
 }
 .form-buttons__wrapper {
   display: flex;
@@ -59,4 +62,11 @@
   margin-top: 30px;
   justify-content: space-between;
   align-items: center;
+}
+.welcome__moon.profile {
+  width: 140px;
+}
+.inline-button {
+  color: #178fe5;
+  cursor: pointer;
 }

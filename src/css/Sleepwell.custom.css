@@ -1,6 +1,13 @@
 .hidden {
   display: none !important;
 }
+.invisible {
+  opacity: 0;
+}
+
+.show {
+  display: block;
+}
 
 table {
   width: 100%;
@@ -22,13 +29,16 @@ td {
   width: 50%;
   padding: 5px 10px 0;
 }
+.mb25 {
+  margin-bottom: 25px;
+}
 .sleepwell {
   overflow: auto;
   overflow-x: hidden;
 }
 
 .subsection__dropdown-content {
-  padding: 0 60px;
+  padding: 0 40px;
   max-height: 0;
   transition: max-height 0.5s ease, padding 0.7s ease;
 }
@@ -89,7 +99,7 @@ td {
 
 .main__subsection.opened .subsection__dropdown-content {
   max-height: 999px;
-  padding: 30px 60px 60px;
+  padding: 30px 40px 40px;
 }
 
 .chapters__chapter.done {
@@ -231,7 +241,7 @@ td {
 
 .fading-enter.fading-enter-active {
   opacity: 1;
-  transition: opacity 300ms ease-in 300ms;
+  transition: opacity 300ms ease-in;
 }
 
 .fading-leave {
